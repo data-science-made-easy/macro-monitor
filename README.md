@@ -36,13 +36,20 @@ The xlsx has two tabs: settings, figures.
 In this tab set variables that apply to many lines in 'figures' tab. [TODO]
 
 ### Figures
-This tab holds three categories of parameters: *Report*, *Preprocessing*, *Plot*. Lines in the xslx (i.e., time series) that share the same values for the *Report* parameters will show up in one single figure in the report.
+This tab holds three categories of parameters: *Report*, *Data / Processing*, *Plot*. Lines in the xslx (i.e., time series) that share the same values for the *Report* parameters will show up in one single figure in the report.
 
 #### Report
 Lines that share the same settings for *report parameters* (section, subsection, tab) will show up in one single figure in the report. The file name of each figure on disk will be a polished combination of the report parameters (roughly speaking: *section*-*subsection*-*tab*.png).
 
-#### Preprocessing
-Parameters in this category determine the preprocessing of the data.
+Leave these parameters empty if you do want to create the figure but don't want it in the report.
+
+#### Data / Processing
+Parameters in this category define the (*i*) data source and (*ii*) its preprocessing settings. Please beware that data of one figure may originate from different sources of data (fig 1, saffier + cbs, fig 21, 2 opendata file REMOVE THIS).
+
+Result of this step is:
+
+- in the subdirectory 'preprocessed': one xlsx file with one sheet of data per invidivual figure.
+
 
 #### Plot
 The monitor software will first combine parameter values for each parameter for each given figure that is defined on multiple lines in the xlsx file. Next, the parameters and their values will be sent to *nicerplot* (i.e., James' R-package) as is. Meaning, one can just add new parameters to the xlsx file as long as these are known to nicerplot.
