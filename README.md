@@ -30,4 +30,21 @@ To run the 'Macro Monitor', execute the `run-monitor.r` script using R. This wil
 3. check the `run` directory for the results of your monitor run (i.e., a timestamped report.html with png's)
 
 ## Details on figure-definition.xlsx
-...
+The xlsx has two tabs: settings, figures.
+
+### Settings
+In this tab set variables that apply to many lines in 'figures' tab. [TODO]
+
+### Figures
+This tab holds three categories of parameters: *Report*, *Preprocessing*, *Plot*. Lines in the xslx (i.e., time series) that share the same values for the *Report* parameters will show up in one single figure in the report.
+
+#### Report
+Lines that share the same settings for *report parameters* (section, subsection, tab) will show up in one single figure in the report. The file name of each figure on disk will be a polished combination of the report parameters (roughly speaking: *section*-*subsection*-*tab*.png).
+
+#### Preprocessing
+Parameters in this category determine the preprocessing of the data.
+
+#### Plot
+The monitor software will first combine parameter values for each parameter for each given figure that is defined on multiple lines in the xlsx file. Next, the parameters and their values will be sent to *nicerplot* (i.e., James' R-package) as is. Meaning, one can just add new parameters to the xlsx file as long as these are known to nicerplot.
+
+NB Setting parameter 'file' will overwrite the default file name.
