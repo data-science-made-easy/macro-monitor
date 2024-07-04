@@ -1,5 +1,9 @@
 # Macro Monitor
 
+KIJKEN OF DIT GENERALISEERBAAR IS:
+- IEDEREEN KAN ZO RAPPORTJES MAKEN
+- MAAK KOLOM 'PIPELINE' VOOR LIJST (custom) FUNCTIES?
+
 ## Introduction
 'Macro Monitor' is a project designed to monitor important macroeconomic indicators. It reads an xlsx-file with figure definitions, based on which it copies relevant source files, processes those files, and creates a report with png's.
 
