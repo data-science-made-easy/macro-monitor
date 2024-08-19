@@ -5,17 +5,17 @@ KIJKEN OF DIT GENERALISEERBAAR IS:
 - MAAK KOLOM 'PIPELINE' VOOR LIJST (custom) FUNCTIES?
 
 ## Introduction
-'Macro Monitor' is a project designed to monitor important macroeconomic indicators. It reads an xlsx-file with figure definitions, based on which it copies relevant source files, processes those files, and creates a report with png's.
+'Macro Monitor' is a system that monitors important macroeconomic indicators. It reads an xlsx-file with figure definitions, based on which it retrieves relevant source files. It processes those files, and creates a report with png's.
 
 ## Install
-To install and set up the 'Macro Monitor' project, download [the latest and greatest source code](https://github.com/data-science-made-easy/macro-monitor/archive/refs/heads/master.zip) to the M-disk and unzip it.
+To install and set up the Macro Monitor, download [the latest and greatest source code](https://github.com/data-science-made-easy/macro-monitor/archive/refs/heads/master.zip) to the M-disk and unzip it.
 
 ### Files and directory structure
 After unzipping the project, you'll find the following files and directories:
 
 - **figure-definition.xlsx**: here you select and define the figures that should end up in your report
 - **run-monitor.r**: this script starts the monitor
-- **r/**: contains this project's R scripts
+- **r/**: contains the project's R scripts
 - **run/**: directory where each run of the monitor is stored, organized by date and time
   - **run-[date/time]**: subdirectory created for each run, containing:
     - **raw**: raw data (just a copy of the source data)
@@ -27,7 +27,7 @@ After unzipping the project, you'll find the following files and directories:
 ## Run
 To run the 'Macro Monitor', execute the `run-monitor.r` script using R. This will initiate the data collection and processing workflow, creating a new run directory under `run/` with timestamped subdirectories for raw, preprocessed, and output data.
 
-###A typical run:
+### A typical run:
 
 1. update `figure-definition.xlsx` with your desired figures (details below)
 2. start the monitor: `Rscript run-monitor.r`
@@ -37,25 +37,21 @@ To run the 'Macro Monitor', execute the `run-monitor.r` script using R. This wil
 The xlsx has two tabs: settings, figures.
 
 ### Settings
-In this tab set variables that apply to many lines in 'figures' tab. [TODO]
+The 'settings' tab configures variables that apply to the many lines in 'figures' tab. [TODO]
 
 ### Figures
-This tab holds three categories of parameters: *Report*, *Data / Processing*, *Plot*. Lines in the xslx (i.e., time series) that share the same values for the *Report* parameters will show up in one single figure in the report.
+The 'figures' tab holds three categories of parameters: *Report*, *Data / Processing*, *Plot*.
 
 #### Report
-Lines that share the same settings for *report parameters* (section, subsection, tab) will show up in one single figure in the report. The file name of each figure on disk will be a polished combination of the report parameters (roughly speaking: *section*-*subsection*-*tab*.png).
+Lines in the figures tab that share the same settings for *report parameters* (section, subsection, tab) will show up in one single figure in the report. The file name of each figure on disk will be a polished combination of the report parameters (roughly speaking: *section*-*subsection*-*tab*.png).
 
 Leave these parameters empty if you do want to create the figure but don't want it in the report.
 
 #### Data / Processing
-Parameters in this category define the (*i*) data source and (*ii*) its preprocessing settings. Please beware that data of one figure may originate from different sources of data (fig 1, saffier + cbs, fig 21, 2 opendata file REMOVE THIS).
+Parameters in this category define the source of the data and its preprocessing settings. Please beware that data of a given figure may originate from different sources of data.
 
-Result of this step is:
+## Result of a single run
+Running the monitor (see above how to do so) yields the following results.
 
 - in the subdirectory 'preprocessed': one xlsx file with one sheet of data per invidivual figure.
-
-
-#### Plot
-The monitor software will first combine parameter values for each parameter for each given figure that is defined on multiple lines in the xlsx file. Next, the parameters and their values will be sent to *nicerplot* (i.e., James' R-package) as is. Meaning, one can just add new parameters to the xlsx file as long as these are known to nicerplot.
-
-NB Setting parameter 'file' will overwrite the default file name.
+- to do...
