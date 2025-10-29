@@ -6,3 +6,4 @@ run/
 test/
 generated/
 assets/fonts/
+prepare-push.sh
