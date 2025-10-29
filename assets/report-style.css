@@ -1,0 +1,56 @@
+body {
+  background-color: #fefefe;
+}
+
+h1 {
+  font-size: 36px;      /* Bigger size */
+  font-weight: bold;    /* Bold text */
+  color: #005faf;       /* Text color */
+}
+h2 {
+  font-size: 30px;      /* Bigger size */
+  font-weight: bold;    /* Bold text */
+  color: #005faf;       /* Text color */
+}
+h3 {
+  font-size: 24px;      /* Bigger size */
+  font-weight: bold;    /* Bold text */
+  color: #00aeef;       /* Text color */
+}
+
+.nav-tabs > li > a {
+  color: #00aeef;  /* Blue text color for unselected tabs */
+}
+.nav-tabs > li.active > a, 
+.nav-tabs > li.active > a:focus, 
+.nav-tabs > li.active > a:hover {
+  color: #e6006e;  /* Red text color for the active tab */
+}
+/* Optional: Change the background color of the active tab */
+.nav-tabs > li.active > a {
+  background-color: #fefefe;  /* Light gray background for the active tab */
+}
+
+* {
+  font-family: "RijksoverheidSansText";
+}
+@font-face {
+  src: url(../assets/fonts/RijksoverheidSansText-Regular_2_0.ttf);
+  font-family: "RijksoverheidSansText";
+}
+@font-face {
+  src: url(../assets/fonts/RijksoverheidSansText-Bold_2_0.ttf);
+  font-family: "RijksoverheidSansText";
+  font-weight: bold;
+}
+@font-face {
+  src: url(../assets/fonts/RijksoverheidSansText-Italic_2_0.ttf);
+  font-family: "RijksoverheidSansText";
+  font-style: italic;
+}
+@font-face {
+  src: url(../assets/fonts/RijksoverheidSansText-BoldItalic_2_0.ttf);
+  font-family: "RijksoverheidSansText";
+  font-weight: bold;
+  font-style: italic;
+}

@@ -1,0 +1,72 @@
+---
+title: "CPB macromonitor"
+date: "`r format(Sys.Date(), '%d-%m-%Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+params:
+  lst: 
+    value: NULL
+    description: "List binnenland/buitenland, sublist "
+  xlsx_path:
+    value: NULL
+    description: "Vector with respective paths to xlsx-file to recreate figure"
+---
+
+## Introductie
+Deze monitor toont de macro-economische toestand van binnen- en buitenland, voor zover bekend op `r format(Sys.Date(), '%d-%m-%Y')`. Onder elk figuur in deze monitor vind je een xlsx-bestand. Je kunt dit bestand downloaden, aanpassen en met een druk op de knop reproduceren door James te starten. Naast de bewerkte gegevens en de Jamesparameters bevat het bestand ook de ruwe data per reeks, zoals aanwezig in de bronbestanden waaruit de data afkomstig zijn. De figuren die je hieronder ziet, zijn overigens ook los beschikbaar als png'tje (zie [deze directory](..)). De verzameling xlsx-bestanden vind je in [deze directory](../xlsx).
+
+Wil je de monitor zelf aanpassen? Dat kan ook. Bewerk [deze template](`r file.path(getwd(), settings$report_template_file_name)`) om de opzet van de monitor aan te passen. Voor de titels, de namen van de tabjes, en de indeling en volgorde van de figuren, moet je in [dit bestand](`r settings$fig_def_file_path`) zijn (zie [sectie Software](#software) voor details).
+
+```{r, echo = FALSE, results = 'asis'}
+for(section in names(params$lst)) {
+  cat("##", section, "\n\n")
+  sublst <- params$lst[[section]]
+  for(subsection in names(sublst)) {
+    cat("###", subsection, " {.tabset}\n\n")
+    fig <- sublst[[subsection]]      
+    for(tab in names(fig)) {
+      cat("####", tab, "\n\n")
+      cat('<img src="', fig[[tab]][1], '" />\n\n')
+      cat(paste0('<a href="', fig[[tab]][2], '">', fontawesome::fa(name = "file-excel", fill = "#217346", height = "30px", vertical_align = "middle"), '&nbsp;&nbsp;&nbsp;', basename(fig[[tab]][2]), '</a> (download, pas aan en reproduceer met <a href="', settings$james_path, '">James</a>)\n\n'))
+    }
+  }
+}
+```
+
+## Software
+Dit [Excelbestand](`r settings$fig_def_file_path`) verzorgt de indeling van de monitor en beschrijft per figuur onder meer (**plotinstellingen**):
+
+  - Titels: (figuur, y-as links, y-as rechts, x-as) en bronvermelding.
+  - Legenda (ja/nee), hoeveel reeksen per kolom, ...
+  - Weergave per reeks (lijn, gestippeld, staaf, ...).
+  - Of er geschaald moet worden.
+  - Domein en bereik van de assen.
+  - Het bestand is naar wens uitbreidbaar met elke nicerplot-parameter door deze als kolom toe te voegen in tabje 'figures' van het [figurendefinitiebestand](`r settings$fig_def_file_path`).<BR/>
+  _Let wel: geef **elk** figuur een andere titel; deze wordt namelijk gebruikt als bestandsnaam van het betreffende figuur._
+
+Tip: deze monitor werkt met variabelen die je zelf kunt definiëren in tabblad 'settings' in het [figurendefinitiebestand](`r settings$fig_def_file_path`). Gebruik bijvoorbeeld \${last_20_years} om het domein van de x-as aan te geven in verschillende figuren, zodat je de waarden in de loop der jaren niet handmatig hoeft aan te passen.
+
+En per tijdreeks onder meer (**data & preprocessing**):
+
+  - In welk bestand de reeks staat.
+  - Op welke sheet de reeks staat.
+  - Hoe de reeks in het bronbestand heet.
+  - Hoe de reeks in de monitor moet heten.
+  - Met welke frequentie de sheet de reeks beschrijft.
+  - Met welke frequentie de reeks getoond moet worden.
+  - (Optioneel) Het basisjaar waarop de reeks moet worden geïndexeerd.
+    _Let op: als de reeks meerdere waarden heeft voor het gekozen indexjaar, gebruiken we het gemiddelde van de waarden in dat jaar._
+  - (Optioneel) Als je ‘cumulatieve samenstelling’ of ‘cumulatieve groei’ wilt, geef dan een basisjaar op om de waarden van de tijdreeks op te normaliseren.
+    _Let op: als de reeks meerdere waarden heeft voor het gekozen basisjaar, gebruiken we alleen de eerste waarde._
+  - Of een verschil met een vorige periode moet worden berekend (en zo ja: hoeveel tijdstappen terug).
+  - Of dat verschil als percentage moet worden getoond.
+  - Of seizoenscorrectie moet plaatsvinden.
+
+Daarnaast kun je verschillende tijdreeksen combineren in een formule. Zie kolommen: 'formula', 'formula\_name' en 'order'. 'formula' bevat de formule, 'formula\_name' is de naam van de formule in de legenda, en 'order' bepaalt welke tijdreeks(en) je uiteindelijk wilt laten zien en in welke volgorde. De formule wordt geplaatst na de reeksen die uit je Exceltabje worden ingeladen. Voorbeeld, je laadt twee reeksen in en wilt alleen hun gemiddelde tonen. Zet dan 'order = 3' en 'formula = (p\$data[, 2] + p\$data[, 3]) / 2' (goed om te weten: p\$data[, 1] is de x-as).
+
+<BR/>
+<BR/>
