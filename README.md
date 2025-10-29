@@ -1,28 +1,28 @@
 # Macro Monitor
 
-KIJKEN OF DIT GENERALISEERBAAR IS:
-- IEDEREEN KAN ZO RAPPORTJES MAKEN
-- MAAK KOLOM 'PIPELINE' VOOR LIJST (custom) FUNCTIES?
-
 ## Introduction
-'Macro Monitor' is a system that monitors important macroeconomic indicators. It reads an xlsx-file with figure definitions, based on which it retrieves relevant source files. It processes those files, and creates a report with png's.
+'Macro Monitor' is a system that monitors important macroeconomic indicators. It reads an xlsx file with figure definitions, based on which it retrieves relevant source files. It processes those files, and creates a report with png's.
 
 ## Install
 To install and set up the Macro Monitor, download [the latest and greatest source code](https://github.com/data-science-made-easy/macro-monitor/archive/refs/heads/master.zip) to the M-disk and unzip it.
 
 ### Files and directory structure
-After unzipping the project, you'll find the following files and directories:
+After unzipping, you’ll find the following files and directories. All key information (figure definitions, order, templates, file paths, axis ranges) is centralized, which makes the software both easy to run and maintain.
 
 - **figure-definition.xlsx**: here you select and define the figures that should end up in your report
+  - **tab `settings`** contains variables (pointing to files, defining zoom levels for axes, defining output path (`path_run`) etc.)
+  - **tab `figures` describes the figures in detail
 - **run-monitor.r**: this script starts the monitor
 - **r/**: contains the project's R scripts
 - **run/**: directory where each run of the monitor is stored, organized by date and time
-  - **run-[date/time]**: subdirectory created for each run, containing:
-    - **raw**: raw data (just a copy of the source data)
-    - **preprocessed**: files that require some preprocessing (e.g., seasonal adjustment)
-    - **output**: final output generated from the run
-      - **png/**: find your png files here
-      - **macro-monitor-[date/time].html**: the final report as defined in **figure-definition.xlsx**
+  - **run-[date/time]** (see variable `path_run`): subdirectory created for each run, containing:
+    - **report/macro-monitor-[date/time].html**: the final report as defined in **figure-definition.xlsx**
+    - **png/**: find your png files here
+    - **xlsx/** with:
+      - **raw**: raw time series (as found in the source data)
+      - **preprocessed**: preprocessed time series (e.g., seasonal adjustment, indexing)
+
+Running the monitor (see below how to do so) creates a directory as defined in variable `path_run` in the settings tab of 'figure-definition.xlsx'. If you leave `path_run` empty, then it creates a directory `run` with subdirectory `run-date-time`, with the actual values for date and time at the moment you start the software. This enables you to run the monitor several times with different settings without overwriting.
 
 ## Run
 To run the 'Macro Monitor', execute the `run-monitor.r` script using R. This will initiate the data collection and processing workflow, creating a new run directory under `run/` with timestamped subdirectories for raw, preprocessed, and output data.
@@ -36,22 +36,31 @@ To run the 'Macro Monitor', execute the `run-monitor.r` script using R. This wil
 ## Details on figure-definition.xlsx
 The xlsx has two tabs: settings, figures.
 
-### Settings
-The 'settings' tab configures variables that apply to the many lines in 'figures' tab. [TODO]
+The **'settings' tab** configures variables that apply to the many rows in 'figures' tab. These variables enable you to conveniently update / improve the monitor and its figures.
 
-### Figures
-The 'figures' tab holds three categories of parameters: *Report*, *Data / Processing*, *Plot*.
+The **'figures' tab** holds three categories of parameters: **report**, **data / processing settings **, and **plot settings**. Each row in the 'figures' tab refers to one single time series. Rows in the 'figures' tab that share the same settings for *report parameters* (section, subsection, tab) will show up in one single figure in the report. One figure hence may show multiple time series.
 
-#### Report
-Lines in the figures tab that share the same settings for *report parameters* (section, subsection, tab) will show up in one single figure in the report. The file name of each figure on disk will be a polished combination of the report parameters (roughly speaking: *section*-*subsection*-*tab*.png).
+Examples of **data / processing settings**:
 
-Leave these parameters empty if you do want to create the figure but don't want it in the report.
+- In which file the series is located  
+- On which sheet of that file the series is located  
+- The name of the series in the source file  
+- The name the series should have in the monitor  
+- The frequency of the series in the source sheet  
+- The frequency at which the series should be displayed in the monitor (the software converts the data accordingly)
+- (Optional) The base year to which the series should be indexed
+  _Note: if the series has multiple values for the chosen base year, the average of those values is used._  
+- (Optional) If you want “cumulative composition” or “cumulative growth,” specify a base year to normalize the values of the time series  
+  _Note: if the series has multiple values for the chosen base year, only the first value is used._  
+- Whether a difference with a previous period should be calculated (and if so, how many time steps back)  
+- Whether that difference should be shown as a percentage  
+- Whether seasonal adjustment should be applied (it's as easy as placing a 'y' in the respective column)
 
-#### Data / Processing
-Parameters in this category define the source of the data and its preprocessing settings. Please beware that data of a given figure may originate from different sources of data.
+Examples of **plot settings**:
 
-## Result of a single run
-Running the monitor (see above how to do so) yields the following results.
-
-- in the subdirectory 'preprocessed': one xlsx file with one sheet of data per invidivual figure.
-- to do...
+- Titles: figure, left y-axis, right y-axis, x-axis
+- Footnote
+- Legend (yes/no), number of series per column, …
+- Display style per series (line, dashed, bar, …)
+- Whether scaling should be applied
+- Axis range (e.g., use ${last_20_years} so you don’t have to manually update the values as time progresses)
