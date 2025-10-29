@@ -6,7 +6,7 @@ source("r/functions-process-work.r")
 source("r/functions-xlsx.r")
 source("r/functions-report.r")
 
-stop("FONT mag niet in GIT, doe path naar p_james/font")
+# stop("FONT mag niet in GIT, doe path naar p_james/font")
 
 ## INPUT
 ##
