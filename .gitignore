@@ -1,4 +1,3 @@
-original/
 .*
 ~*
 run-monitor-mac.r
@@ -7,3 +6,4 @@ test/
 generated/
 assets/fonts/
 prepare-push.sh
+tmp/
