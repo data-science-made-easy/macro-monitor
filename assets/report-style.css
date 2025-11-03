@@ -35,21 +35,25 @@ h3 {
   font-family: "RijksoverheidSansText";
 }
 @font-face {
-  src: url(../assets/fonts/RijksoverheidSansText-Regular_2_0.ttf);
+  /*src: url(../assets/fonts/RijksoverheidSansText-Regular_2_0.ttf);*/
+  src: url(m:/p_james/fonts/RijksoverheidSansText-Regular_2_0.ttf);
   font-family: "RijksoverheidSansText";
 }
 @font-face {
-  src: url(../assets/fonts/RijksoverheidSansText-Bold_2_0.ttf);
+/*  src: url(../assets/fonts/RijksoverheidSansText-Bold_2_0.ttf);*/
+  src: url(m:/p_james/fonts/RijksoverheidSansText-Regular_2_0.ttf);
   font-family: "RijksoverheidSansText";
   font-weight: bold;
 }
 @font-face {
-  src: url(../assets/fonts/RijksoverheidSansText-Italic_2_0.ttf);
+/*  src: url(../assets/fonts/RijksoverheidSansText-Italic_2_0.ttf);*/
+  src: url(m:/p_james/fonts/RijksoverheidSansText-Italic_2_0.ttf);
   font-family: "RijksoverheidSansText";
   font-style: italic;
 }
 @font-face {
-  src: url(../assets/fonts/RijksoverheidSansText-BoldItalic_2_0.ttf);
+/*  src: url(../assets/fonts/RijksoverheidSansText-BoldItalic_2_0.ttf);*/
+  src: url(m:/p_james/fonts/RijksoverheidSansText-BoldItalic_2_0.ttf);
   font-family: "RijksoverheidSansText";
   font-weight: bold;
   font-style: italic;
