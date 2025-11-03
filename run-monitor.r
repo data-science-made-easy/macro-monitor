@@ -104,7 +104,7 @@ report <- list()
 for (i in get_index_vec(index_lst)) {
   index   <- index_lst[[i]]
   j       <- index[1]
-  report[[work$section[j]]][[work$subsection[j]]][[work$tab[j]]] <- c(normalizePath(work$img[j]), xlsx_path[i])
+  report[[work$section[j]]][[work$subsection[j]]][[work$tab[j]]] <- c(normalizePath(work$img[j], winslash = "/"), normalizePath(xlsx_path[i], winslash = "/"))
 }
 
 ## Markdown report
