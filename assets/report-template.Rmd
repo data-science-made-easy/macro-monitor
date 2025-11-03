@@ -30,8 +30,8 @@ for(section in names(params$lst)) {
     fig <- sublst[[subsection]]      
     for(tab in names(fig)) {
       cat("####", tab, "\n\n")
-      cat('<img src="', fig[[tab]][1], '" />\n\n')
-      cat(paste0('<a href="', fig[[tab]][2], '">', fontawesome::fa(name = "file-excel", fill = "#217346", height = "30px", vertical_align = "middle"), '&nbsp;&nbsp;&nbsp;', basename(fig[[tab]][2]), '</a> (download, pas aan en reproduceer met <a href="', settings$james_path, '">James</a>)\n\n'))
+      cat('<img src="', fig[[tab]][1], '" />\n\n', sep = "")
+      cat(paste0('<a href="', fig[[tab]][2], '">', fontawesome::fa(name = "file-excel", fill = "#217346", height = "30px", vertical_align = "middle"), '&nbsp;&nbsp;&nbsp;', basename(fig[[tab]][2]), '</a> (download, pas aan en reproduceer met <a href="', settings$james_path, '">James</a>)\n\n'), sep = "")
     }
   }
 }
